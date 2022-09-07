@@ -19,7 +19,7 @@ namespace GildedRoseTests
         //}
 
         [Test]
-        public void FirstTest() //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
+        public void StandardUpdateQuality() //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
         {
             //Arrange
             //Should be ONE item of each type
@@ -30,11 +30,25 @@ namespace GildedRoseTests
             app.UpdateQuality();
 
             //Assert
-            Assert.That(Items.Where(i=> i.Name == "Item1").FirstOrDefault().Quality , Is.EqualTo(49));
+            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().Quality, Is.EqualTo(49));
             Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().SellIn, Is.EqualTo(9));
         }
 
         //Calidad de un artículo nunca negativa
+        [Test]
+        public void QualityNeverNegative()
+        {
+
+            IList<Item> Items = new List<Item> { new Item { Name = "StandardItem", SellIn = 2, Quality = 0 } };
+            GildedRose app = new GildedRose(Items);
+
+            //Act
+            app.UpdateQuality();
+
+            //Assert
+            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().Quality, Is.EqualTo(49));
+            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().SellIn, Is.EqualTo(9));
+        }
 
         //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
     }
