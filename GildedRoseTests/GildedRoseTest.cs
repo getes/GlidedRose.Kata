@@ -22,7 +22,6 @@ namespace GildedRoseTests
         public void StandardUpdateQuality() //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
         {
             //Arrange
-            //Should be ONE item of each type
             IList<Item> Items = new List<Item> { new Item { Name = "Item1", SellIn = 10, Quality = 50 } };
             GildedRose app = new GildedRose(Items);
 
@@ -42,14 +41,30 @@ namespace GildedRoseTests
             IList<Item> Items = new List<Item> { new Item { Name = "StandardItem", SellIn = 2, Quality = 0 } };
             GildedRose app = new GildedRose(Items);
 
-            //Act
             app.UpdateQuality();
 
-            //Assert
-            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().Quality, Is.EqualTo(49));
-            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().SellIn, Is.EqualTo(9));
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().Quality, Is.EqualTo(0));
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().SellIn, Is.EqualTo(1));
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().Quality, Is.EqualTo(0));
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().SellIn, Is.EqualTo(0));
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().Quality, Is.EqualTo(0));
+            Assert.That(Items.Where(i => i.Name == "StandardItem").FirstOrDefault().SellIn, Is.EqualTo(-1));
         }
 
-        //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
+        //Items Sulfuras Quality Inmutable
+
+        //Items Sulfuras SellIn Inmutable
+
+        //Queso Brie Aumenta Quality cada dia
+
+        //Queso Brie pasada la SellIn date, aumenta de dos en dos
+
+        //Queso Brie nunca tiene Quality > 50
     }
 }
