@@ -1,5 +1,4 @@
-﻿//using Xunit;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using GildedRoseKata;
 using System.Linq;
@@ -9,15 +8,6 @@ namespace GildedRoseTests
     [TestFixture]
     public class GildedRoseTest
     {
-        //[Fact]
-        //public void foo()
-        //{
-        //    IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
-        //    GildedRose app = new GildedRose(Items);
-        //    app.UpdateQuality();
-        //    Assert.Equal("fixme", Items[0].Name);
-        //}
-
         [Test]
         public void StandardUpdateQuality() //Pasado un dia un Articulo Standard decrementa SellIn -- y Quality --
         {
@@ -154,12 +144,89 @@ namespace GildedRoseTests
         }
 
         //BackStagePass Grow Quality x3 for SellIn 1 a 5
+        [Test]
+        public void BackStagePassQuality_x3_IfSellIn_Between_1_and_6()
+        {
+            int initialQuality = 1;
+            int actualQuality = 1;
+
+            IList<Item> Items = new List<Item> { TestHelpers.CreateBackstageItem(5, initialQuality) };
+            GildedRose app = new GildedRose(Items);
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(4));
+
+            actualQuality = actualQuality + 3;
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(3));
+
+            actualQuality = actualQuality + 3;
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(2));
+
+            actualQuality = actualQuality + 3;
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(1));
+        }
 
         //BackStagePass Grow Quality = 0 for SellIn = 0
+        [Test]
+        public void BackStagePassQuality_0_forSellIn_0()
+        {
+            int initialQuality = 10;
+
+            IList<Item> Items = new List<Item> { TestHelpers.CreateBackstageItem(0, initialQuality) };
+            GildedRose app = new GildedRose(Items);
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(0));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(-1));
+        }
+
+        //When SellIn < 0 Quality Falls double 
+        [Test]
+        public void QualityDropsDoubleAfterSellIn() //Pasado fecha de venta un Articulo Standard decrementa SellIn -- y Quality x2
+        {
+            int initialQuality = 50;
+            int initialSellIn = 0;
+
+            //Arrange
+            IList<Item> Items = new List<Item> {
+                TestHelpers.CreateStandardItem(TestHelpers.StandardItem, initialSellIn, initialQuality)};
+            GildedRose app = new GildedRose(Items);
+
+            //Act
+            app.UpdateQuality();
+
+            //Assert
+            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().Quality, Is.EqualTo(48));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().SellIn, Is.EqualTo(-1));
+        }
 
         //Conjured Items Quality Falls Double than StandardItem
+        [Test]
+        public void ConjuredItemsFallsDoubleQuality()
+        {
+            int initialQuality = 50;
+            int initialSellIn = 10;
 
-        //When SellIn < 0 Quality Falls double
+            IList<Item> Items = new List<Item> { TestHelpers.CreateConjuredItem(initialSellIn, initialQuality) };
+            GildedRose app = new GildedRose(Items);
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.ConjuredItem).FirstOrDefault().Quality, Is.EqualTo(initialQuality - 2));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.ConjuredItem).FirstOrDefault().SellIn, Is.EqualTo(initialSellIn-1));
+        }
 
         //Conjured Quality Falls x4 when SellIn = 0 ????
     }
