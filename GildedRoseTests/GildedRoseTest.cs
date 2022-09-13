@@ -228,6 +228,20 @@ namespace GildedRoseTests
             Assert.That(Items.Where(i => i.Name == TestHelpers.ConjuredItem).FirstOrDefault().SellIn, Is.EqualTo(initialSellIn-1));
         }
 
-        //Conjured Quality Falls x4 when SellIn = 0 ????
+        //Conjured Quality Falls x4 when SellIn < 0 ????
+        [Test]
+        public void ConjuredItemsQualityFallsx4WhenSellInPassed()
+        {
+            int initialQuality = 50;
+            int initialSellIn = 10;
+
+            IList<Item> Items = new List<Item> { TestHelpers.CreateConjuredItem(initialSellIn, initialQuality) };
+            GildedRose app = new GildedRose(Items);
+
+            app.UpdateQuality();
+
+            Assert.That(Items.Where(i => i.Name == TestHelpers.ConjuredItem).FirstOrDefault().Quality, Is.EqualTo(initialQuality - 2));
+            Assert.That(Items.Where(i => i.Name == TestHelpers.ConjuredItem).FirstOrDefault().SellIn, Is.EqualTo(initialSellIn - 1));
+        }
     }
 }
