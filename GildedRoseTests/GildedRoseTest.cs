@@ -20,19 +20,18 @@ namespace GildedRoseTests
 
         //Standard Item Sellin Y Quality -1 cada dia si Sellin >= 0
         [Test]
-        private void StandardItemSellIn_and_QualityDecreaseByOneWhenSellinGreaterThanZero()
+        private static void StandardItemSellIn_and_QualityDecreaseByOneWhenSellinGreaterThanZero()
         {
             //Arrange
-
-
-
-            GildedRose app = new GildedRose();
+            var Items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.StandardItem, 10, 50)};
+            GildedRose app = new GildedRose(Items);
 
             //Act
             app.UpdateQuality();
 
 
             //Assert
+            Assert.That()
         }
 
 
