@@ -12,22 +12,26 @@ namespace GildedRose.Factories
         {
             switch (name)
             {
-                case "Standard":
+                case "StandardItem":
                     _strategy = new StandardStrategy();
                     break;
                 case "AgedBrie":
+                    _strategy = new AgedBrieStrategy();
                     break;
                 case "Conjured":
+                    _strategy = new ConjuredStrategy();
                     break;
                 case "BackStage":
+                    _strategy = new BackStageStrategy();
                     break;
                 case "Sulfuras":
+                    _strategy = new SulfurasStrategy();
                     break;
                 default:
-                    break;
+                    return null;
             }
 
-            return null;
+            return _strategy;
         }
     }
 }

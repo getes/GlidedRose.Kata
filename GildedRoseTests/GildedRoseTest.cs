@@ -25,7 +25,7 @@ namespace GildedRoseTests
         {
             //Arrange
             var items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.StandardItem, 10, 50)};
-            GildedRose app = new (items);
+            GlidedRose app = new (items);
 
             //Act
             app.UpdateQuality();
@@ -43,7 +43,7 @@ namespace GildedRoseTests
         {
             //Arrange
             var items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.StandardItem, 0, 50) };
-            GildedRose app = new(items);
+            GlidedRose app = new(items);
 
             //Act
             app.UpdateQuality();
@@ -62,7 +62,7 @@ namespace GildedRoseTests
         {
             //Arrange
             var items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.AgedBrie, 5, 15) };
-            GildedRose app = new(items);
+            GlidedRose app = new(items);
 
             //Act
             app.UpdateQuality();
@@ -80,7 +80,7 @@ namespace GildedRoseTests
         public static void AgedBrieQuality_Never_GreaterThanFifty()
         {
             var items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.AgedBrie, 10, 50) };
-            GildedRose app = new(items);
+            GlidedRose app = new(items);
 
             app.UpdateQuality();
 
@@ -92,7 +92,7 @@ namespace GildedRoseTests
         public static void AgedBrieQuality_Never_GreaterThanFifty_WhenSellInSmallerThan_0()
         {
             var items = new List<Item>() { TestHelper.ItemBuilder(TestHelper.AgedBrie, -2, 50) };
-            GildedRose app = new(items);
+            GlidedRose app = new(items);
 
             app.UpdateQuality();
 
