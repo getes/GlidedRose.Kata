@@ -19,8 +19,8 @@ namespace GildedRoseTests
             app.UpdateQuality();
 
             //Assert
-            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().Quality, Is.EqualTo(49));
-            Assert.That(Items.Where(i => i.Name == "Item1").FirstOrDefault().SellIn, Is.EqualTo(9));
+            Assert.That(Items.FirstOrDefault(i => i.Name == "Item1").Quality, Is.EqualTo(49));
+            Assert.That(Items.FirstOrDefault(i => i.Name == "Item1").SellIn, Is.EqualTo(9));
         }
 
         //Calidad de un artículo nunca negativa
@@ -34,18 +34,18 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().Quality, Is.EqualTo(0));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().SellIn, Is.EqualTo(1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).Quality, Is.EqualTo(0));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).SellIn, Is.EqualTo(1));
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().Quality, Is.EqualTo(0));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().SellIn, Is.EqualTo(0));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).Quality, Is.EqualTo(0));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).SellIn, Is.EqualTo(0));
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().Quality, Is.EqualTo(0));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.StandardItem).FirstOrDefault().SellIn, Is.EqualTo(-1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).Quality, Is.EqualTo(0));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.StandardItem).SellIn, Is.EqualTo(-1));
         }
 
         //Items Sulfuras Quality Inmutable
@@ -59,8 +59,8 @@ namespace GildedRoseTests
             app.UpdateQuality();
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.Sulfuras).FirstOrDefault().Quality, Is.EqualTo(80));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.Sulfuras).FirstOrDefault().SellIn, Is.EqualTo(10));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.Sulfuras).Quality, Is.EqualTo(80));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.Sulfuras).SellIn, Is.EqualTo(10));
         }
 
         //Queso Brie Aumenta Quality cada dia
@@ -74,10 +74,9 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().Quality, Is.EqualTo(initialQuality +1));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().SellIn, Is.EqualTo(9));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).Quality, Is.EqualTo(initialQuality +1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).SellIn, Is.EqualTo(9));
         }
-
 
         //Queso Brie pasada la SellIn date, aumenta de dos en dos
         [Test]
@@ -90,8 +89,8 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().Quality, Is.EqualTo(initialQuality +2));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().SellIn, Is.EqualTo(-1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).Quality, Is.EqualTo(initialQuality +2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).SellIn, Is.EqualTo(-1));
         }
 
         //Queso Brie nunca tiene Quality > 50
@@ -105,8 +104,8 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().Quality, Is.EqualTo(initialQuality));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.AgedBrie).FirstOrDefault().SellIn, Is.EqualTo(-6));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).Quality, Is.EqualTo(initialQuality));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.AgedBrie).SellIn, Is.EqualTo(-6));
         }
 
         //BackStagePass Grow Quality x2 for SellIn 6 a 10
@@ -121,26 +120,26 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality+2));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(9));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality+2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(9));
 
             actualQuality = actualQuality+2;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality+2));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(8));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality+2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(8));
 
             actualQuality = actualQuality+2;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality+2));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(7));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality+2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(7));
 
             actualQuality = actualQuality+2;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality+2));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(6));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality+2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(6));
         }
 
         //BackStagePass Grow Quality x3 for SellIn 1 a 5
@@ -155,26 +154,26 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(4));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(4));
 
             actualQuality = actualQuality + 3;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(3));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(3));
 
             actualQuality = actualQuality + 3;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(2));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(2));
 
             actualQuality = actualQuality + 3;
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(actualQuality + 3));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(actualQuality + 3));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(1));
         }
 
         //BackStagePass Grow Quality = 0 for SellIn = 0
@@ -188,8 +187,8 @@ namespace GildedRoseTests
 
             app.UpdateQuality();
 
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().Quality, Is.EqualTo(0));
-            Assert.That(Items.Where(i => i.Name == TestHelpers.BackstagePass).FirstOrDefault().SellIn, Is.EqualTo(-1));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).Quality, Is.EqualTo(0));
+            Assert.That(Items.FirstOrDefault(i => i.Name == TestHelpers.BackstagePass).SellIn, Is.EqualTo(-1));
         }
 
         //When SellIn < 0 Quality Falls double 
