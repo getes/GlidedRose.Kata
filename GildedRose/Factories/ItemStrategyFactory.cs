@@ -1,6 +1,7 @@
 ﻿using GildedRose.Contracts;
 using GildedRose.Strategies;
 using GildedRose.Common;
+using System;
 
 namespace GildedRose.Factories
 {
@@ -28,7 +29,7 @@ namespace GildedRose.Factories
                     _strategy = new SulfurasStrategy();
                     break;
                 default:
-                    return null;
+                    throw new Exception ($"Strategy Not Found: {name}");
             }
 
             return _strategy;
