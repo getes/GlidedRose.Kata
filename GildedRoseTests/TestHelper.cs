@@ -1,21 +1,16 @@
 ﻿using GildedRoseKata;
+using GildedRose.Common;
 
 namespace GildedRoseTests
 {
     public class TestHelper
     {
-        public const string StandardItem = "StandardItem";
-        public const string AgedBrie = "Aged Brie";
-        public const string Sulfuras = "Sulfuras, Hand of Ragnaros";
-        public const string BackstagePass = "Backstage passes to a TAFKAL80ETC concert";
-        public const string ConjuredItem = "Conjured Mana Cake";
-
-        public static Item ItemBuilder(string name, int sellIn, int quality)
+        public static Item ItemBuilder(string name, int sellIn = 10, int quality = 50)
         {
             Item item = new () { 
                 Name = name, 
                 SellIn = sellIn, 
-                Quality = quality 
+                Quality = name == Constants.Sulfuras ? 80 : quality 
             };
 
             return item;

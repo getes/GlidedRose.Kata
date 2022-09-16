@@ -1,6 +1,6 @@
 ﻿using GildedRose.Contracts;
 using GildedRose.Strategies;
-using GildedRoseKata;
+using GildedRose.Common;
 
 namespace GildedRose.Factories
 {
@@ -12,19 +12,19 @@ namespace GildedRose.Factories
         {
             switch (name)
             {
-                case "StandardItem":
+                case Constants.StandardItem:
                     _strategy = new StandardStrategy();
                     break;
-                case "AgedBrie":
+                case Constants.AgedBrie:
                     _strategy = new AgedBrieStrategy();
                     break;
-                case "Conjured":
+                case Constants.ConjuredItem:
                     _strategy = new ConjuredStrategy();
                     break;
-                case "BackStage":
+                case Constants.BackstagePass:
                     _strategy = new BackStageStrategy();
                     break;
-                case "Sulfuras":
+                case Constants.Sulfuras:
                     _strategy = new SulfurasStrategy();
                     break;
                 default:
