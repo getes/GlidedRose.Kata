@@ -25,7 +25,7 @@ namespace GildedRose.Strategies
                 case 9:
                 case 10:
                     item.Quality += 2;
-                break;
+                    break;
                 default:
                     item.Quality += 1;
                     break;

@@ -108,18 +108,10 @@ namespace GlidedRoseTests
             Assert.That(!items.Any(i => i.Quality > 50));
         }
 
-        //Any Item Quality nunca menor de 0
-
-
-        //--------------------------- BFV -----------------------------------
-
-
-        //Calidad de un artículo nunca negativa
+        //Calidad de un artículo standard nunca negativa
         [Test]
         public void QualityNeverNegative()
         {
-
-            //IList<Item> Items = new List<Item> { new Item { Name = "StandardItem", SellIn = 2, Quality = 0 } };
             IList<Item> Items = new List<Item> { TestHelper.ItemBuilder(Constants.StandardItem, 2, 0) };
             GlidedRose app = new(Items);
 
@@ -230,19 +222,19 @@ namespace GlidedRoseTests
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(actualQuality + 2));
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(9));
 
-            actualQuality = actualQuality + 2;
+            actualQuality += 2;
             app.UpdateQuality();
 
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(actualQuality + 2));
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(8));
 
-            actualQuality = actualQuality + 2;
+            actualQuality += 2; ;
             app.UpdateQuality();
 
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(actualQuality + 2));
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(7));
 
-            actualQuality = actualQuality + 2;
+            actualQuality += 2;
             app.UpdateQuality();
 
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(actualQuality + 2));
