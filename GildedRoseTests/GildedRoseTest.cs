@@ -100,10 +100,10 @@ namespace GlidedRoseTests
                 TestHelper.ItemBuilder(Constants.BackstagePass, 4, 50),
                 TestHelper.ItemBuilder(Constants.BackstagePass, 0, 50),
                 TestHelper.ItemBuilder(Constants.BackstagePass, -1, 50),
-                TestHelper.ItemBuilder(Constants.StandardItem, 10, 50),
             };
 
             GlidedRose app = new(items);
+            app.UpdateQuality();
 
             Assert.That(!items.Any(i => i.Quality > 50));
         }
@@ -288,6 +288,20 @@ namespace GlidedRoseTests
 
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(0));
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(-1));
+        }
+
+        [Test]
+        public void BackStageQualityNeverGrowsOver50()
+        {
+            int initialQuality = 50;
+
+            IList<Item> Items = new List<Item> { TestHelper.ItemBuilder(Constants.BackstagePass, 2, initialQuality) };
+            GlidedRose app = new(Items);
+
+            app.UpdateQuality();
+
+            Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).Quality, Is.EqualTo(initialQuality));
+            Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(1));
         }
 
         //When SellIn < 0 Quality Falls double 
