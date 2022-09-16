@@ -18,8 +18,9 @@ namespace GildedRoseKata
         {
             foreach (Item item in _items)
             {
-                var strategy = _itemFactory.CreateStrategyItem(item.Name);
-                strategy.Update(item);
+                _itemFactory
+                    .CreateStrategyItem(item.Name)
+                    .Update(item);
             }
         }
     }
