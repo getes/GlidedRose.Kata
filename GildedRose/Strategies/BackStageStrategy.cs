@@ -12,18 +12,10 @@ namespace GildedRose.Strategies
                 case <= 0:
                     item.Quality = 0;
                     break;
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
+                case 1 or 2 or 3 or 4 or 5:
                     item.Quality += 3;
                     break;
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
+                case 6 or 7 or 8 or 9 or 10:
                     item.Quality += 2;
                     break;
                 default:
