@@ -1,5 +1,6 @@
 ﻿using GildedRose.Factories;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GildedRoseKata
 {
@@ -16,12 +17,7 @@ namespace GildedRoseKata
 
         public void UpdateQuality()
         {
-            foreach (Item item in _items)
-            {
-                _itemFactory
-                    .CreateStrategyItem(item.Name)
-                    .Update(item);
-            }
+            _items.ToList().ForEach(item => _itemFactory.CreateStrategyItem(item.Name).Update(item));
         }
     }
 }
