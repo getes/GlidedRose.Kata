@@ -1,4 +1,4 @@
-﻿using GildedRoseKata;
+﻿using GlidedRoseKata;
 
 namespace GildedRose.Contracts
 {

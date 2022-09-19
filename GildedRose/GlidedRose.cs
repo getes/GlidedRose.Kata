@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GildedRoseKata
+namespace GlidedRoseKata
 {
     public class GlidedRose
     {

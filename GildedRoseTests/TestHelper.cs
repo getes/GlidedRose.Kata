@@ -1,4 +1,4 @@
-﻿using GildedRoseKata;
+﻿using GlidedRoseKata;
 using GildedRose.Common;
 
 namespace GildedRoseTests

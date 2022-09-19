@@ -1,5 +1,5 @@
 ﻿using GildedRose.Contracts;
-using GildedRoseKata;
+using GlidedRoseKata;
 
 namespace GildedRose.Strategies
 {
