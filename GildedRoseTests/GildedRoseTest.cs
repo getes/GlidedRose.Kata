@@ -74,7 +74,7 @@ namespace GlidedRoseTests
             Assert.AreEqual(50, items.FirstOrDefault(item => item.Name == Constants.AgedBrie)?.Quality);
         }
 
-
+        //AgedBrie Quality Never Greater than 50 when SellIn < 0
         [Test]
         public static void AgedBrieQuality_Never_GreaterThanFifty_WhenSellInSmallerThan_0()
         {
@@ -290,6 +290,7 @@ namespace GlidedRoseTests
             Assert.That(Items.FirstOrDefault(i => i.Name == Constants.BackstagePass).SellIn, Is.EqualTo(-1));
         }
 
+        //BackStagePass Quality Never > 50
         [Test]
         public void BackStageQualityNeverGrowsOver50()
         {
