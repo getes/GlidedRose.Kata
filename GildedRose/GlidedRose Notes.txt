@@ -1,0 +1,156 @@
+GlidedRose Kata
+
+GitHub Repo:
+
+	https://github.com/emilybache/GildedRose-Refactoring-Kata
+
+Artículo:
+
+	https://levelup.gitconnected.com/how-to-refactor-gildedrose-refactoring-kata-with-simple-factory-pattern-and-strategy-pattern-c6b4d6c04d96
+
+-----------------
+
+# Especificaciones de la Rosa Dorada (Gilded Rose)
+
+Bienvenido al equipo de **Gilded Rose**.
+Como quizá sabes, somos una pequeña posada ubicada estratégicamente en una prestigiosa ciudad, atendida por la amable **Allison**.
+También compramos y vendemos mercadería de alta calidad.
+Por desgracia, nuestra mercadería va bajando de calidad a medida que se aproxima la fecha de venta.
+
+Tenemos un sistema instalado que actualiza automáticamente el `inventario`.
+Este sistema fue desarrollado por un muchacho con poco sentido común llamado Leeroy, que ahora se dedica a nuevas aventuras.
+Tu tarea es agregar una nueva característica al sistema para que podamos comenzar a vender una nueva categoría de items.
+
+## Descripción preliminar
+
+Pero primero, vamos a introducir el sistema:
+
+* Todos los artículos (`Item`) tienen una propiedad `sellIn` que denota el número de días que tenemos para venderlo
+* Todos los artículos tienen una propiedad `quality` que denota cúan valioso es el artículo
+* Al final de cada día, nuestro sistema decrementa ambos valores para cada artículo mediante el método `updateQuality`
+
+Bastante simple, ¿no? Bueno, ahora es donde se pone interesante:
+
+* Una vez que ha pasado la fecha recomendada de venta, la `calidad` se degrada al doble de velocidad
+* La `calidad` de un artículo nunca es negativa
+* El "Queso Brie envejecido" (`Aged brie`) incrementa su `calidad` a medida que se pone viejo
+  * Su `calidad` aumenta en `1` unidad cada día
+  * luego de la `fecha de venta` su `calidad` aumenta `2` unidades por día
+* La `calidad` de un artículo nunca es mayor a `50`
+* El artículo "Sulfuras" (`Sulfuras`), siendo un artículo legendario, no modifica su `fecha de venta` ni se degrada en `calidad`
+* Una "Entrada al Backstage", como el queso brie, incrementa su `calidad` a medida que la `fecha de venta` se aproxima
+  * si faltan 10 días o menos para el concierto, la `calidad` se incrementa en `2` unidades
+  * si faltan 5 días o menos, la `calidad` se incrementa en `3` unidades
+  * luego de la `fecha de venta` la `calidad` cae a `0`
+
+## El requerimiento
+
+Hace poco contratamos a un proveedor de artículos *conjurados mágicamente*.
+Esto requiere una actualización del sistema:
+
+* Los artículos `conjurados` degradan su `calidad` al doble de velocidad que los normales
+
+Siéntete libre de realizar cualquier cambio al mensaje `updateQuality` y agregar el código que sea necesario, mientras que todo siga funcionando correctamente. Sin embargo, **no alteres el objeto `Item` ni sus propiedades** ya que pertenecen al goblin que está en ese rincón, que en un ataque de ira te va a liquidar de un golpe porque no cree en la cultura de código compartido.
+
+## Notas finales
+
+Para aclarar: un artículo nunca puede tener una `calidad` superior a `50`, sin embargo las Sulfuras siendo un artículo legendario posee una calidad inmutable de `80`.
+
+---------------  KATA GUIDELINES ---------------
+
+Step 1:
+
+Generate TestFile empty
+
+Step 2: Read Requisites and create Tests Needed
+	2.0 Pseudocode / Test titles (*)
+	2.1 First Test
+	2.2 Second Test
+	2.3 Test Helper
+	2.4 Third Test + Constants?
+	2.5 Rest of Tests
+	2.6 Some tests will Fail (conjured items)
+
+ -- Add Conjured Items behaviour (new functionality) ahora o despues del Refactor? A DEBATIR
+ 
+		Al refactorizar y aplicar patrones veremos como ahora AÑADIR el conjured items es MIL veces mas rapido
+		Creamos un tipo nuevo, le ponemos el comportamiento deseado y el GlidedRose no ha cambiado para nada!
+
+		!!!!Si queremos correjirlo en el codigo de IF's, es muerte segura!!!!
+
+Step 3: Check the code and plan a refactor
+
+	Opciones de Refactor:
+
+	#1 Switch Case:
+
+		Case (AgedBrie)
+		Case (Sulfuras)
+		...
+		Default:
+			//StandardItem
+		
+	#2 Factory Pattern:
+
+		https://refactoring.guru/es/design-patterns/factory-method
+		
+		Implica herencias de clases y hacer Item abstracta, los requisitos dicen de NO CAMBIAR Item para nada...
+
+	#3 Strategy Pattern:
+
+		https://refactoring.guru/es/design-patterns/strategy
+		
+
+Step 4: Start Refactor
+	4.0 Small Refactor --> Es util? merece el esfuerzo realizar cambios (de If a Switch, etc...) 
+	4.1 Pass some Tests
+	4.2 Use Refactor Pattern (code patterns to apply)
+	4.3 Apply Refactor, while check that tests keep working
+	  4.3.1 Add new functionality (Conjured Items)
+	4.4 All tests passed
+	4.5 Refactor Code (simplify code, delete duplicity, delete magic numbers, strings... 
+	  4.5.1 Keep Passing tests
+	
+------------------------ (*)Tests To be Created ---------------
+
+
+        //Standard Item Sellin Y Quality -1 cada dia si Sellin >= 0
+        
+        //Standard Item Sellin Y Quality -2 cada dia si SellIn< 0
+        
+        //Si es AgedBrie Quality +1 si Sellin >= 0
+        
+        //AgedBrie Quality nunca mayor de 50
+		
+		//AgedBrie Quality Never Greater than 50 when SellIn < 0
+        
+        //NoneItem ExceptSulfuras Has Quality over50
+        
+        //Calidad de un artículo standard nunca negativa
+        
+        //Items Sulfuras Quality Inmutable
+        
+        //Queso Brie Aumenta Quality cada dia
+        
+        //Queso Brie pasada la SellIn date, aumenta de dos en dos
+        
+        //Queso Brie nunca tiene Quality > 50
+        
+        //Si es BackStage Quality +1 si Sellin > 10
+        
+        //BackStagePass Grow Quality x2 for SellIn 6 a 10
+        
+        //BackStagePass Grow Quality x3 for SellIn 1 a 5
+        
+        //BackStagePass Grow Quality = 0 for SellIn = 0
+        
+        //BackStagePass Quality Never > 50
+		
+		//When SellIn < 0 Quality Falls double
+		
+		//Conjured Items Quality Falls Double than StandardItem
+		
+		//Conjured Quality Falls x4 when SellIn < 0 ????
+		
+------------------------------------------------------------
+
